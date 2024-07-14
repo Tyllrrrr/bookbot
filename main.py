@@ -10,6 +10,9 @@ def main():
     char_count = count_characters(text)
     print(f"Character Counts: '{char_count}'")
 
+    report(char_count)
+
+
 def book_text(path):
     with open(path) as f:
         return f.read()
@@ -38,5 +41,21 @@ def count_characters(text):
                 char_count[char] = 1
     
     return char_count
+
+def report(char_count):
+    char_list = [{
+        "char" : char,
+        "count" : count
+        }
+    for char, count in char_count.items()    
+    ]
+    char_list.sort(key=lambda x: x["count"], reverse=True)
+    print(f"--- Begin report of books/frankenstein.txt ---")
+    print(f"{sum(char_count.values())} characters found in the document\n")
+    
+    for item in char_list:
+       print(f"The '{item['char']}' character was found {item['count']} times")
+    
+    print("--- End report ---") 
 
 main()
